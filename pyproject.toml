@@ -1,0 +1,39 @@
+[project]
+name = "mev-commit-db"
+version = "0.1.0"
+description = "Add your description here"
+authors = [
+    { name = "Evan-Kim2028", email = "ekcopersonal@gmail.com" }
+]
+dependencies = [
+    "polars>=1.9.0",
+    "clickhouse-connect>=0.8.3",
+    "clickhouse-driver>=0.2.9",
+    "clickhouse-sqlalchemy>=0.3.2",
+    "SQLAlchemy>=2.0.36",
+    "hypermanager>=0.1.9",
+    "fastapi>=0.115.2",
+    "uvicorn>=0.32.0",
+    "pandas>=2.2.3",
+    "pyarrow>=17.0.0",
+    "fastapi-cors>=0.0.6",
+    "requests>=2.26.0",
+    "pydantic>=2.9.2",
+    "python-dotenv>=1.0.1"
+]
+readme = "README.md"
+requires-python = ">= 3.12"
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.rye]
+managed = true
+dev-dependencies = []
+
+[tool.hatch.metadata]
+allow-direct-references = true
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/mev_commit_db"]
