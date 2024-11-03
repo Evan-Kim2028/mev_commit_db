@@ -6,45 +6,39 @@ services:
       - "8123:8123"
     volumes:
       - clickhouse_data:/var/lib/clickhouse
-    environment:
-      - CLICKHOUSE_PORT="8123"
-      - CLICKHOUSE_DB=mev_commit_testnet
-      - CLICKHOUSE_USER=default
-      - CLICKHOUSE_PASSWORD=
-
+    env_file:
+      - .env
     networks:
       - app-network
-
 
   pipeline:
     build:
       context: .
       dockerfile: Dockerfile
-    command: python pipe/query_commits.py
-    depends_on:
-      - db
     volumes:
       - .:/app
     working_dir: /app/src/mev_commit_db
     networks:
       - app-network
+    depends_on:
+      - db
     entrypoint: ["/app/entrypoint.sh", "pipeline"]
 
-  api:
-    build:
-      context: .
-      dockerfile: Dockerfile
-    command: uvicorn api/main.py:app --host 0.0.0.0 --port 8000
-    depends_on:
-      - db
-    volumes:
-      - .:/app
-    working_dir: /app/src/mev_commit_db
-    ports:
-      - "8000:8000"
-    networks:
-      - app-network
-    entrypoint: ["/app/entrypoint.sh", "api"]
+  # api:
+  #   build:
+  #     context: .
+  #     dockerfile: Dockerfile
+  #   command: uvicorn api/main.py:app --host 0.0.0.0 --port 8000
+  #   depends_on:
+  #     - db
+  #   volumes:
+  #     - .:/app
+  #   working_dir: /app/src/mev_commit_db
+  #   ports:
+  #     - "8000:8000"
+  #   networks:
+  #     - app-network
+  #   entrypoint: ["/app/entrypoint.sh", "api"]
 
 networks:
   app-network:
