@@ -15,8 +15,6 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-    volumes:
-      - .:/app
     working_dir: /app/src/mev_commit_db
     networks:
       - app-network
