@@ -21,8 +21,7 @@ RUN curl -sSf https://rye.astral.sh/get | RYE_INSTALL_OPTION="--yes" bash
 # Set the PATH
 ENV PATH="/root/.rye/bin:/root/.rye/shims:${PATH}"
 
-# Copy project files
-COPY . /app
+COPY . .
 # Use Rye to set up the environment
 RUN rye sync
 
