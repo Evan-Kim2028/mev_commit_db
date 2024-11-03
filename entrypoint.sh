@@ -1,6 +1,9 @@
 #!/bin/bash
 set -e
 
+# Activate the virtual environment
+source /app/.venv/bin/activate
+
 # Set PYTHONPATH
 export PYTHONPATH=/app
 
