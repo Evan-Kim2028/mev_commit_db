@@ -20,9 +20,7 @@ services:
     working_dir: /app/src/mev_commit_db
     networks:
       - app-network
-    depends_on:
-      - db
-    entrypoint: ["/app/entrypoint.sh"]
+    entrypoint: ["/app/entrypoint.sh", "pipeline"]
 
   # api:
   #   build:
