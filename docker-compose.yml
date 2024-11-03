@@ -16,6 +16,8 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
+    env_file:
+      - .env
     working_dir: /app/src/mev_commit_db
     networks:
       - app-network
