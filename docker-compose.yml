@@ -22,7 +22,7 @@ services:
       - app-network
     depends_on:
       - db
-    entrypoint: ["/app/entrypoint.sh", "pipeline"]
+    entrypoint: ["/app/entrypoint.sh"]
 
   # api:
   #   build:
