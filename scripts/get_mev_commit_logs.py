@@ -1,12 +1,19 @@
 import asyncio
 import clickhouse_connect
+import logging
+import os
+
 from clickhouse_connect.driver import Client
-from src.mev_commit_db.pipe.query_logs import fetch_event_for_config
+from mev_commit_db.pipe.hypersync import fetch_event_for_config
 from mev_commit_db.pipe.write_clickhouse import write_to_clickhouse
-from mev_commit_db.pipe.query_clickhouse import get_max_column_val
+from mev_commit_db.pipe.clickhouse import get_max_column_val
 from hypermanager.protocols.mev_commit import mev_commit_config
 from hypermanager.manager import HyperManager
-import logging
+
+
+from dotenv import load_dotenv
+
+load_dotenv()
 
 # Configure logging
 logging.basicConfig(
@@ -21,13 +28,12 @@ async def main():
     """
     logger.info("Starting main function to fetch and process event logs.")
 
-    # Connect to ClickHouse
     client: Client = clickhouse_connect.get_client(
-        database="mev_commit_testnet",
-        host="localhost",
-        port=8123,
-        username="default",
-        password="",
+        database=os.getenv("CLICKHOUSE_DATABASE"),
+        host=os.getenv("CLICKHOUSE_HOST"),
+        port=int(os.getenv("CLICKHOUSE_PORT")),
+        username=os.getenv("CLICKHOUSE_USER"),
+        password=os.getenv("CLICKHOUSE_PASSWORD"),
     )
     manager = HyperManager("https://mev-commit.hypersync.xyz")
 
