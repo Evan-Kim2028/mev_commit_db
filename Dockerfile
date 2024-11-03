@@ -1,4 +1,4 @@
-FROM python:3.12.5-slim
+FROM python:3.12.5
 
 WORKDIR /app
 
@@ -11,6 +11,9 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     git \
     curl && \
     rm -rf /var/lib/apt/lists/*
+
+ENV RYE_TOOLCHAIN_VERSION=3.12.5
+
 
 # Install Rye non-interactively
 RUN curl -sSf https://rye.astral.sh/get | RYE_INSTALL_OPTION="--yes" bash
