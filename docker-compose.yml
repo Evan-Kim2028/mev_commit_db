@@ -6,6 +6,7 @@ services:
       - "8123:8123"
     volumes:
       - clickhouse_data:/var/lib/clickhouse
+      - ~/clickhouse_config/users.xml:/etc/clickhouse-server/users.d/users.xml:ro
     env_file:
       - .env
     networks:
